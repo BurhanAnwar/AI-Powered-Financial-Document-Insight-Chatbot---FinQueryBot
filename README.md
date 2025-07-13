@@ -1,32 +1,37 @@
 # 💼 FinQueryBot – AI-Powered-Financial-Document-Insight-Chatbot
 
-A production-ready AI-powered chatbot that lets you **ask questions from financial documents** like 10-Ks, tax returns, balance sheets, and contracts.
+A production-ready **Retrieval-Augmented Generation (RAG)** system that lets you chat with your financial documents — **analyze 10-Ks, tax returns, contracts, balance sheets** with natural language queries.
 
 Built with 🔗 **LangChain**, 🤖 **OpenAI GPT-4o**, 📦 **FAISS**, ⚙️ **FastAPI**, and 💬 **Streamlit**.
 
 ---
 
-## 📌 Features
+## 🚀 Features
 
-- ✅ Upload **PDFs** like 10-Ks, balance sheets, contracts, etc.
-- 💬 Ask natural language queries like:
-  > “What was the net income in 2024?”
-- 🤖 Powered by **GPT-4o** for better reasoning
-- 🧠 Uses **FAISS** for semantic similarity search
-- 📊 Embeddings with **OpenAI**
-- 🎯 **Streamlit UI** + **FastAPI backend**
+- 🧠 **RAG pipeline** with LangChain + FAISS
+- 🤖 Answers powered by **OpenAI GPT (ChatGPT / GPT-4o)**
+- 📄 Upload and embed **PDF financial documents**
+- 🔍 Ask questions like “What was the cash flow in 2023?”
+- ⚙️ **FastAPI** backend for inference
+- 💬 **Streamlit** frontend for seamless interaction
+
+
+
 
 ---
 
 ## 🧠 How It Works
-
-1. PDF is uploaded and converted into text chunks
-2. Text chunks are embedded using OpenAI embeddings
-3. Stored in a FAISS vector database
-4. When a user asks a question:
-   - LangChain retrieves the most relevant chunks
-   - Sends to GPT-4o for answering
-   - Response is returned in chat
+PDF is uploaded manually and processed via `ingest.py`
+-- The document is:
+- Loaded using PyPDFLoader
+- Split into manageable chunks using RecursiveCharacterTextSplitter
+- Converted into vector embeddings using OpenAIEmbeddings
+- FAISS vector store is created locally and saved in the project as faiss_store/
+- When a user asks a question through the Streamlit UI:
+- The question is sent to the FastAPI backend (/ask endpoint)
+- LangChain’s RetrievalQA retrieves the most relevant chunks using FAISS retriever
+- The retrieved context is sent to OpenAI’s GPT-4o (via ChatOpenAI)
+- A precise answer is generated and returned in the chat interface
 
 ---
 
